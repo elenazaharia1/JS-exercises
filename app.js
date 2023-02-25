@@ -93,21 +93,225 @@ function collectFirstName(employees) {
   if (!employees) {
     console.info("no value provided");
   }
-  var firstNames = employees.map((employee) => {
+  return (firstNames = employees.map((employee) => {
     return employee.firstName;
-  });
-  console.log(firstNames);
+  }));
 }
-collectFirstName(employees);
 
-// 2. function that calculates average salary
+console.log(collectFirstName(employees));
 
-function calculateAverageSalary() {
-  var sum = 0;
+// 3. function that calculates average salary
+
+// function calculateAverageSalary() {
+//   const salarySum = employees.reduce(
+//     (sum, employee) => sum + parseFloat(employee.salary),
+//     0
+//   );
+//   return salarySum / employees.length;
+// }
+// console.log(calculateAverageSalary());
+
+function calculateAverageSalary(employees) {
+  var averageSalary = 0;
   employees.forEach((employee) => {
-    sum += parseFloat(employee.salary);
-    return (average = sum / employees.length);
+    averageSalary += parseFloat(employee.salary);
   });
-  console.log(average);
+  return averageSalary;
 }
-calculateAverageSalary();
+
+console.log(calculateAverageSalary(employees));
+
+// 4. avg fem salary
+
+function calculateAverageFemSalary(employees) {
+  const femaleEmployees = employees.filter(
+    (employee) => employee.gender === "Female"
+  );
+  console.table(femaleEmployees);
+
+  const femaleSalaries = femaleEmployees.map((employee) =>
+    parseFloat(employee.salary)
+  );
+
+  const sum = femaleSalaries.reduce((acc, salary) => acc + salary, 0);
+
+  const avgSalary = sum / femaleSalaries.length;
+
+  return avgSalary;
+}
+console.log(calculateAverageFemSalary(employees));
+
+// function calculateAverageFemSalary(employees) {
+//   var TotalSalaryFem = 0;
+//   var averageFem = 0;
+
+//   employees.forEach((employee) => {
+//     if (employee.gender === "Female") {
+//       TotalSalaryFem += parseFloat(employee.salary);
+//       return TotalSalaryFem;
+//     }
+
+//     averageFem = TotalSalaryFem / employee.salary.length;
+//     console.log(averageFem);
+//   });
+// }
+
+// averageFem = calculateAverageFemSalary(employees);
+
+//5. Function that creates 2 arrays based on gender
+
+function splitEmployees(employees) {
+  const femaleEmployees = employees.filter(
+    (employee) => employee.gender === "Female"
+  );
+
+  const maleEmployees = employees.filter(
+    (employee) => employee.gender === "Male"
+  );
+
+  return {
+    maleEmployees: maleEmployees,
+    femaleEmployees: femaleEmployees,
+  };
+}
+console.log(splitEmployees(employees));
+
+//6. convert employee array into object
+
+/*
+function convertAllEmployees(employees) {
+  let convert = {};
+
+  employees.forEach((employee) => {
+    convert[employee.lastName] = employee;
+  });
+  return convert;
+}
+console.log(convertAllEmployees(employees));
+*/
+
+function convertAllEmployees(employees) {
+  const employeesObj = employees.reduce((acc, employee) => {
+    acc[employee.lastName] = employee;
+    return acc;
+  }, {});
+  return employeesObj;
+}
+console.log(convertAllEmployees(employees));
+
+const inventors = [
+  {
+    first: "Albert",
+    last: "Einstein",
+    year: 1879,
+    passed: 1955,
+  },
+  {
+    first: "Isaac",
+    last: "Newton",
+    year: 1643,
+    passed: 1727,
+  },
+  {
+    first: "Galileo",
+    last: "Galilei",
+    year: 1564,
+    passed: 1642,
+  },
+  {
+    first: "Marie",
+    last: "Curie",
+    year: 1867,
+    passed: 1934,
+  },
+  {
+    first: "Johannes",
+    last: "Kepler",
+    year: 1571,
+    passed: 1630,
+  },
+  {
+    first: "Nicolaus",
+    last: "Copernicus",
+    year: 1473,
+    passed: 1543,
+  },
+  {
+    first: "Max",
+    last: "Planck",
+    year: 1858,
+    passed: 1947,
+  },
+  {
+    first: "Katherine",
+    last: "Blodgett",
+    year: 1898,
+    passed: 1979,
+  },
+  {
+    first: "Ada",
+    last: "Lovelace",
+    year: 1815,
+    passed: 1852,
+  },
+  {
+    first: "Sarah E.",
+    last: "Goode",
+    year: 1855,
+    passed: 1905,
+  },
+  {
+    first: "Lise",
+    last: "Meitner",
+    year: 1878,
+    passed: 1968,
+  },
+  {
+    first: "Hanna",
+    last: "Hammarström",
+    year: 1829,
+    passed: 1909,
+  },
+];
+
+//9. filter list of inventors for DOB in the 1500s
+
+const dob = inventors.filter(
+  (inventor) => inventor.year < 1600 && inventor.year >= 1500
+);
+console.table(dob);
+
+//10. make an array for first and last names using .map
+
+let fullName = inventors.map((inventor) => {
+  return inventor.first + " " + inventor.last;
+});
+
+console.log(fullName);
+
+//11. find Galileo .find
+
+let findGalileo = inventors.find(({ first }) => first === "Galileo");
+console.log(findGalileo);
+
+//12. sum of years the inventors lived
+
+let yearsLived = inventors.map((inventor, passed, year) => {
+  return inventor.passed - inventor.year;
+});
+console.log(yearsLived);
+let sumLivedYears = yearsLived.reduce((initial, sum) => {
+  return initial + sum;
+}, 0);
+console.log(sumLivedYears);
+
+//13. sort inventors by years lived
+
+let sortedArray = inventors.sort((a, b) => {
+  if (a.passed - a.year > b.passed - b.year) return 1;
+  else if (b.passed - b.year > a.passed - a.year) return -1;
+  else return 0;
+});
+
+console.table(sortedArray);
+console.table(yearsLived);
