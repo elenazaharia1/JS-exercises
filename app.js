@@ -315,3 +315,84 @@ let sortedArray = inventors.sort((a, b) => {
 
 console.table(sortedArray);
 console.table(yearsLived);
+
+// 15.
+
+const friends = [
+  {
+    name: "Wes",
+    year: 1988,
+  },
+  {
+    name: "Kait",
+    year: 1986,
+  },
+  {
+    name: "Irv",
+    year: 1970,
+  },
+  {
+    name: "Lux",
+    year: 2015,
+  },
+];
+const comments = [
+  {
+    text: "Love this!",
+    id: 523423,
+  },
+  {
+    text: "Super good",
+    id: 823423,
+  },
+  {
+    text: "You are the best",
+    id: 2039842,
+  },
+  {
+    text: "Ramen is my fav food ever",
+    id: 123523,
+  },
+  {
+    text: "Nice Nice Nice!",
+    id: 542328,
+  },
+];
+
+//16. array .some is at least one person 19 or >19
+
+let present = 2023;
+
+let personAge = friends.some((friend) => {
+  present - friend.year > 19;
+  return true;
+});
+console.log(personAge);
+
+//.17 is everyone older than 19 .every
+
+let personAge2 = friends.every((friend) => {
+  return present - friend.year > 19;
+});
+console.log(personAge2);
+
+// 18. .find comment id 823423
+
+let id = 823423;
+
+let wantedID = comments.find((comment) => {
+  if (comment.id === id) return true;
+});
+console.log(wantedID);
+
+//19. .findIndex id 823423
+
+let index = comments.findIndex((comment) => {
+  return comment.id == id;
+});
+console.log(index);
+
+let leftOver = comments.splice(index, 1);
+
+console.table(leftOver);
+console.table(comments);
